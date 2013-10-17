@@ -6,6 +6,9 @@ use Silex\ServiceProviderInterface;
 
 class SongkickServiceProvider implements ServiceProviderInterface
 {
+	/**
+	 * {@inheritdoc}
+	 */
 	public function register (Application $app)
 	{
 		// throw an error if the api_key isn't set
@@ -20,11 +23,10 @@ class SongkickServiceProvider implements ServiceProviderInterface
 
 
 		$app['songkick.get_artist_concerts'] = $app->protect(function ($artist_id = null) use ($app) {
+			
 			// return false if no songkick ID
 			if (!isset($artist_id))
-			{
 				return false;
-			}
 
 			// send a CURL JSON request to get the artist's upcoming concerts
 			$concerts = $this->artistGetConcerts($artist_id, $this->api_key);
@@ -63,13 +65,17 @@ class SongkickServiceProvider implements ServiceProviderInterface
 		});
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function boot (Application $app)
 	{
 		// La-la-la
 	}
 
 	/**
-	 * abbreviateVenue
+	 * Abbreviates the venue name if it's too long to fit nicely in the widget.
+	 * 
 	 * @param  string 	$venue_name	Full venue name returned from Songkick API.
 	 * @param  string 	$location	Full formatted location name.
 	 * @return string             	Abbreviated to last word over 45 chars suffixed w/ ellipsis
@@ -102,6 +108,13 @@ class SongkickServiceProvider implements ServiceProviderInterface
 		return $venue_name;
 	}
 
+	/**
+	 * Makes a Songkick API call for a particular artist and returns a list of upcoming concerts.
+	 * 
+	 * @param 	int 	$artist_id The artist's songkick ID.
+	 * @param 	string 	$api_key The app's songkick API key.
+	 * @return  array 	An array of shows returned by Songkick.
+	 */
 	private function artistGetConcerts ($artist_id, $api_key)
 	{
 		// Songkick API v3.0 JSON URL Endpoint

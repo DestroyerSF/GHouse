@@ -10,8 +10,16 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class TwitterServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * Guzzle HTTP Client for making Twitter API requests.
+     * 
+     * @var \Guzzle\Http\Client
+     */
     private $client;
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function register(Application $app)
     {
 
@@ -101,28 +109,37 @@ class TwitterServiceProvider implements ServiceProviderInterface
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot(Application $app)
     {
         // Ho-hum.
     }
 
+    /**
+     * Marks up links, mentions, and hashtags in tweets.
+     * 
+     * @param  string $tweet_text Raw tweet text provided by Twitter API.
+     * @return string             Marked up tweet.
+     */
     private static function linkifyTweet($tweet_text)
     {
-        // linkify mentions
+        // linkify external URLs
         $tweet_text = preg_replace(
             "/([\w]+:\/\/[\w-?&;#~=\.\/\@]+[\w\/])/i",
             '<a class="ext_link" target="_blank" href="$1">$1</A>',
             $tweet_text
         );
 
-        // linkify hashtags
+        // linkify mentions
         $tweet_text = preg_replace(
             "/@(\w+)/",
             '<a class="mention" target="_blank" href="http://twitter.com/$1">@$1</a>',
             $tweet_text
         );
 
-        // linkify regular URLs
+        // linkify hashtags
         $tweet_text = preg_replace(
             "/#(\w+)/",
             '<a class="hashtag" target="_blank" href="http://twitter.com/search?q=%23$1">#$1</a>',
