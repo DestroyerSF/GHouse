@@ -1,11 +1,11 @@
-This is the "final" version of the GHouse site / dobismaster.
+Final version of the GHouse site / dobismaster.
 ------------------------------------------------------------------
 
 URL routes & actions can be found in:
 src > lib > GHouse > Controller > Provider
 
 Page templates and CSS can be found in, respectively:
-view > template
+view > template &
 view > scss > ui
 
 Please note that the site's due for a good deal of refactoring before we start extending and rebranding for the Destroyer prototype. Things are relatively well organized, but there are some specific things I'd like to tackle before extending:
