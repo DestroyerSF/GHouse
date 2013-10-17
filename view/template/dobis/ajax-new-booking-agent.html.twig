@@ -1,0 +1,22 @@
+{% set agent_form = new_booking_agents_form[booking_agent_no] %}
+			<fieldset class="booking-agents-dobis  booking-agents-dobis--new">
+				<div class="inner-contents">
+					<section class="form__input">
+						{{ form_label(agent_form.name, 'Name') }}
+						<div class="input__control">
+							{{ form_widget(agent_form.name) }}
+							<div class="input__error">{{ form_errors(agent_form.name) }}</div>
+						</div>
+					</section>
+
+					<section class="form__input">
+						{{ form_label(agent_form.email, 'E-mail') }}
+						<div class="input__control">
+							{{ form_widget(agent_form.email) }}
+							<div class="input__error">{{ form_errors(agent_form.email) }}</div>
+						</div>		
+					</section>
+				</div>
+				<a href="#" class="btn  btn--remove-booking-agent" data-type="new">delete</a>
+
+			</fieldset>

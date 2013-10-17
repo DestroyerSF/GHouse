@@ -1,0 +1,11 @@
+TEAM
+
+    Clark Burkhardt -- Developer
+    Ryan Bambery -- Designer
+
+
+SITE
+
+    HTML
+    CSS
+    inuit.css -- inuitcss.com

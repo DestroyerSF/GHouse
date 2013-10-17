@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="error-notice">
+	{% if app.error.code == 404 %}
+		<h1>404</h1>
+		<p>
+			No such page.
+		</p>
+		<small><a href="{{ app.base_url }}" rel="back" onClick="javascript:window.history.back();">Go Back</a></small>
+	{% else %}
+		<h1>Oops.</h1>
+		<p>
+			Something broke. We apologize for the inconvenience.
+		</p>
+		<small><a href="{{ app.base_url }}" onClick="history.go(-1);return false;">Go Back</a></small>
+
+		{% if app.env != 'prod' %}
+		<dl>
+			<dt><i class="icon" data-icon="&#xF06A"></i>{{ app.error.type }} &mdash; {{ app.error.code }} on line {{ app.error.line }}</dt>
+			<dd></dd>
+
+			<dt>Message</dt>
+			<dd>{{ app.error.message }}</dd>
+
+			<dt>Trace</dt>
+			<dd>{{ app.error.trace }}</dd>
+		</dl>
+		{% endif %}
+
+	{% endif %}
+</div>
+{% endblock %}

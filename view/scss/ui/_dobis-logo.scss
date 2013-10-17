@@ -1,0 +1,50 @@
+/*------------------------------------*\
+    $DOBIS-LOGO.SCSS
+\*------------------------------------*/
+.dobis-logo{
+	a{
+		text-decoration:none!important;
+	}
+
+		.regular-logo{ @include media-query(portable){ display:none; } }
+
+		.mobile-logo{ @include media-query(desk){ display:none; } }
+
+		h1{
+			cursor:pointer;
+			color:$brand-color;
+			font-family:'Courier',Courier,monospace;
+			font-variant:small-caps;
+			@include vendor(text-shadow, 1px 1px 2px #ccc);
+			font-weight:400;		
+
+			sub{
+				color:#555;
+				font-weight:200;
+			}
+		}
+}
+
+.dobis-logo--small{
+	@extend .float--left;
+	line-height:$base-spacing-unit*2;
+
+	h1 sub{
+		font-size:35%;
+	}
+}
+
+.dobis-logo--large{
+	@include media-query(lap-and-up){
+		h1{ @include font-size($giga-size); }
+	}
+
+	h1{
+		@extend .text--center;
+		letter-spacing:12px;
+
+		sub{
+			font-size:20%;
+		}
+	}
+}

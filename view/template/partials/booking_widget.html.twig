@@ -1,0 +1,150 @@
+{% set artist = app.artist %}
+<div class="booking booking--{% if artist.songkick_artist_id is null %}centered{% else %}split{% endif %}">{# wrapper #}
+	{% if artist.songkick_artist_id is null %}
+		<h3 class="booking-heading">Booking →</h3>
+		<a class="booking-contact-email  icon-text--rev" href="mailto:{{ artist.booking_agent.email }}?subject=Booking+{{ artist.name }}" title="Book {{ artist.name }}">
+			{{ artist.booking_agent.name }}<i class="icon  icon-text__icon" data-icon="&#xF003"></i>
+		</a>
+	{% else %}
+		<div class="shows">
+			<div class="shows__shows">
+			{% if app.artist.shows.0 is defined %}
+				<table class="table--songkick">
+				{% for show in artist.shows %}
+				{% if loop.index < 3 %}
+					<tr>
+						<td class="lap-and-up-one-fifth">
+							<strong class="hide--palm">{{ show.date|date('F d') }}</strong>
+							<strong class="hide--lap-and-up">{{ show.date|date('M. d') }}</strong>
+						</td>
+						<td class="lap-and-up-seven-tenths">
+							{{ show.city }} &mdash; {{ show.venue }}
+						</td>
+						<td class="lap-and-up-one-tenth">
+							<a href="{{ show.url }}" target="_blank">
+								tickets
+							</a>
+						</td>
+					</tr>
+
+					{% if loop.index == 2 and artist.shows.2 is defined %}
+					<tr class="more-link-wrapper">
+						<td class="more-link" colspan="3">
+							<a class="more-link__link" href="#">more shows&hellip;</a>
+						</td>
+					</tr>
+					{% endif %}
+				{% endif %}
+				{% endfor %}
+				</table>
+				{% if app.artist.shows.2 is defined %}
+				<table class="table--songkick  table--songkick-more">
+					{% for show in artist.shows %}
+					{% if loop.index > 2 %}
+						<tr>
+							<td class="lap-and-up-one-fifth">
+								<strong class="hide--palm">{{ show.date|date('F d') }}</strong>
+								<strong class="hide--lap-and-up">{{ show.date|date('M. d') }}</strong>
+							</td>
+							<td class="lap-and-up-seven-tenths">
+								{{ show.city }} &mdash; {{ show.venue }}
+							</td>
+							<td class="lap-and-up-one-tenth">
+								<a href="{{ show.url }}" target="_blank">
+									tickets
+								</a>
+							</td>
+						</tr>					
+					{% endif %}
+					{% endfor %}
+				</table>
+				{% endif %}
+			{% else %}
+				<h3 class="booking-heading  booking-heading--no-shows">No upcoming shows.</h3>
+			{% endif %}
+			</div><!--
+		 --><div class="shows__btns">
+		 		<div class="shows-btn-wrapper {% if artist.shows.2 is defined %}  expandable-shows{% endif %}">
+		 			{% if artist.booking_agent %}
+		 			<div class="btn-grid">
+		 				<div class="btn-grid__btn">
+				 			<a class="btn  btn--songkick  icon-text" href="http://www.songkick.com/artists/{{ artist.songkick_artist_id }}" target="_blank">
+				 				<i class="sprite  sprite--songkick  icon-text__icon"></i>Past shows
+				 			</a>
+				 		</div><!--
+				 	 --><div class="btn-grid__btn">
+				 			<a class="btn  btn--booking  icon-text" href="mailto:{{ artist.booking_agent.email }}?subject=Booking+{{ artist.name }}"><i class="icon  icon-text__icon" data-icon="&#xF003"></i>Booking</a>
+				 		</div>
+			 		</div>
+		 			
+		 			{% else %}
+		 			
+		 			<a class="btn  btn--songkick-large  icon-text" href="http://www.songkick.com/artists/{{ artist.songkick_artist_id }}" target="_blank">
+		 				<i class="sprite sprite--songkick  icon-text__icon"></i>Past shows on Songkick
+		 			</a>
+		 			
+		 			{% endif %}
+		 		</div>
+			</div>
+		</div>
+	{% endif %}
+</div>
+				{# <div class="shows-wrapper">
+					<table class="table--songkick">
+						{% for show in app.artist.shows %}
+						{% if loop.index < 3 %}
+						<tr>
+							<td class="one-fifth">
+								<strong>{{ show.date|date('M d') }}</strong>
+							</td>
+							<td class="three-fifths">
+								{{ show.city }}
+							</td>
+							<td class="one-fifth">
+								<a href="{{ show.url }}">
+									tickets
+								</a>
+							</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</table>
+
+					{% if app.artist.shows|length < 3 %}
+						<p class="songkick-attribution">
+							<a href="http://www.songkick.com/artists/{{ app.artist.songkick_artist_id }}"><i class="sprite sprite--songkick"></i></a>
+						</p>
+					{% endif %}
+
+					<div{% if app.artist.shows|length > 2 %} class="more-shows"{% endif %}>
+						{% if app.artist.shows|length > 2 %}<h4>hover for more</h4>{% endif %}
+						
+						{% if app.artist.shows|length > 2 %}
+						<div class="more-shows__shows">
+							<table class="table--songkick">
+								{% for show in app.artist.shows %}
+								{% if loop.index > 2 %}
+								<tr>
+									<td class="one-fifth">
+										<strong>{{ show.date|date('M d') }}</strong>
+									</td>
+									<td class="three-fifths">
+										{{ show.city }}
+									</td>
+									<td class="one-fifth">
+										<a href="{{ show.url }}">
+											tickets
+										</a>
+									</td>
+								</tr>
+								{% endif %}
+								{% endfor %}
+							</table>
+
+							<p class="songkick-attribution">
+								<a href="http://www.songkick.com/artists/{{ app.artist.songkick_artist_id }}"><i class="sprite sprite--songkick"></i></a>
+							</p>						
+						</div>
+						{% endif %}
+					</div>
+				</div> #}

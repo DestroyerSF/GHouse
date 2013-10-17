@@ -1,0 +1,384 @@
+/*------------------------------------*\
+    $BUTTONS.SCSS
+\*------------------------------------*/
+.btn{
+	font-family:Kefa, 'Kefa', Georgia, serif;
+	&:hover{
+		@include vendor(text-shadow, 1px 1px #aaa);
+	}
+}
+
+.btn--regular{
+	@include vendor(border-radius, 0px);
+	margin-left:$half-spacing-unit/2;	
+	font-family:'Courier',Courier,monospace;
+	font-variant:small-caps;
+	&:hover{ @include vendor(text-shadow, none); }
+}
+
+
+.btn--navbar{
+	@extend .float--right;
+	line-height:$base-spacing-unit*1.5;
+	margin-top:$base-spacing-unit/2;
+}
+
+.btn--positive, .btn--action, .btn--login, .btn--logout, .btn--negative{ @extend .btn--regular; }
+
+.btn--positive{
+	background:#8EE8A6;
+	&:hover{ background:darken(#8EE8A6, 8%); }
+	&:active{ background:darken(#8EE8A6, 22%); }
+}
+
+.btn--negative{
+	margin-left:0px;
+	background:darken(red, 20%);
+	&:hover{ background:darken(red, 28%) }
+	&:active{ background:darken(red, 32%) }
+	color:#fff;
+}
+
+.btn--submit, .btn--big-save{ @extend .btn--positive; }
+
+.btn--remove-artist, .btn--remove-booking-agent, .btn--remove-release, .btn--remove-picture, .btn--delete{ @extend .btn--negative; }
+
+.btn--submit, .btn--action, .btn--logout, .btn--delete{ @extend .btn--navbar; }
+
+
+.btn--remove-picture{
+	padding:2px $half-spacing-unit/2;
+	line-height:$base-spacing-unit;
+	margin-top:8px;
+}
+
+.btn--big-save{
+	margin:0px auto;
+	@include font-size(20px);
+	padding:$half-spacing-unit $half-spacing-unit*1.25;
+}
+
+.btn--action{
+	color:#fff;
+	&:hover{ background:darken($beautons, 8%); }
+	&:active{ background:darken($beautons, 22%); }	
+}
+
+.btn--view-artist, .btn--dropdown-menu{ @extend .btn--action; }
+
+
+.btn--login{
+	@extend .btn--full;
+	font-size:20px;
+}
+
+
+.btn--login, .btn--logout{
+	background:#ccc;
+
+	&:hover{
+		background:#c0c0c0;
+	}
+
+	&:active{
+		background:#a0a0a0;
+	}
+}
+
+
+.btn--twitter{
+	@extend .icon-text;
+	font-size:16px;
+	background:$brand-color;
+	border:solid 1px;
+	border-color:darken($brand-color, 12%);
+	color:#fff;
+
+	i{
+		@extend .icon-text__icon;
+		color:inherit;
+		font-size:1em;
+		position:relative;
+		top:-2px;
+	}
+
+	&:hover{
+		background:darken($brand-color, 4%);
+	}
+
+	&:active{
+		background:darken($brand-color, 12%);
+	}
+}
+
+.btn--big-tweet{
+	background:inherit;
+	line-height:inherit;
+	opacity:0.6;
+	padding:0px;
+
+	&:hover {
+		opacity:1;
+		@include vendor(text-shadow, none);
+	}
+
+	i{
+		color:$brand-color;
+		margin-top:4px;
+		font-size:48px;
+		vertical-align:middle;
+	}
+}
+
+
+/**
+ * Create responsive image links.
+ *
+   <a href="#foo" class="img-btn">
+      <img src="foo">
+      <div class="caption">
+      	<div class="caption__backdrop"></div>
+      	<div class="caption__content">
+			Foo Title
+      	</div>
+   </a>
+ *
+ */
+.img-btn{
+		display:block;
+		padding:0px;
+		position:relative;
+		background-color:transparent;
+		@include media-query(desk){ margin-bottom:$base-spacing-unit; }
+		@include media-query(portable) { &:hover { @include vendor(text-shadow, none); } }
+
+		img{
+			@extend .scalable;
+		}
+
+		.caption{
+			text-align:center;
+			position:relative;
+			max-width:100%;
+
+			.caption__backdrop{
+				display:none;
+			}			
+
+			@include media-query(portable){
+				font-size:12px;
+				line-height:$base-spacing-unit;
+			}
+
+			@include media-query(desk){
+				@include vendor(transition, opacity 0.1s ease-in);
+				@include vendor(transition, opacity 0.5s ease-out);
+
+				opacity:0;
+
+				&:hover{
+					opacity:1;
+				}
+
+				&,.caption__backdrop{
+					height:100%;
+					width:100%;
+					position:absolute;
+					top:0px;
+					left:0px;						
+				}
+
+				.caption__backdrop{
+					display:table-cell;
+					background:lighten(#000, 20%);
+					opacity:.75;
+					z-index:9;
+				}
+
+				.caption__content{
+					@include font-size(18px);
+					position:absolute;
+					top:50%;
+					height:($line-height-ratio*18)+px;
+					margin-top:-($line-height-ratio*18)/2+px;
+					width:100%;
+					background:transparent;
+					color:#fff;
+					z-index:10;
+					opacity:2;
+				}
+			}
+		}
+
+		&.active
+		{
+			cursor:default;
+
+			&:hover{
+				text-decoration:none;
+			}
+
+			.caption{
+				.caption_content{
+					font-weight:800;
+				}					
+
+				@include media-query(desk){
+					display:block;
+					opacity:1;
+
+					.caption_backdrop{
+						display:block;
+						opacity:.9;
+						background:lighten($brand-color, 5%);
+					}
+				}
+			}
+
+		}
+	}
+
+
+.btn--songkick, .btn--booking{
+	line-height:$base-spacing-unit*1.5;
+	max-height:$base-spacing-unit*1.5;
+	margin-bottom:$half-spacing-unit;
+	margin-top:0px;
+	background-color:#fff;
+	border:solid 1px #ccc;
+	font-family:Helvetica;
+	opacity:.7;
+	@extend .btn--full;
+
+	@include media-query(lap-and-up){
+		margin-top:$half-spacing-unit;
+	}
+	
+	&:hover{
+		@include vendor(text-shadow, none);
+		opacity:1;
+		background:lighten(#ccc, 18%);
+	}	
+}
+
+.btn--songkick-large{
+	@extend .btn--songkick;
+	width:100%!important;
+	text-align:center;
+}
+
+
+/**
+ * Dropdown menu buttons.
+ * 
+   <div class="dropdown-menu">
+     <button class="btn  dropdown-menu__btn">
+     	Toggle Menu
+     </button>
+
+     <ul class="dropdown-menu__menu">
+     	<li class="menu-item">
+     		<a href="#">Link one</a>
+     	</li>
+     	<li class="menu-item">
+     		<a href="#">Link two</a>
+     	</li>
+     	<li class="menu-divider"></li>
+     	<li class="menu-item">
+     		<a href="#">Link three</a>
+     	</li>
+     </ul>
+   </div>
+ *
+ * Add functionality via JS like this:
+ * 
+   <script>
+     $('.dropdown-menu').on('click', '.dropdown-menu__btn', function(e){
+		var menu = $(this).parent('.dropdown-menu');
+
+		if ($(menu).hasClass('on')):
+			$(menu).removeClass('on');
+		else:
+			$(menu).addClass('on');
+		endif;
+     });
+    </script>
+ * 
+ */
+
+.dropdown-menu{
+	display:inline-block;
+	position:relative;
+	overflow:hidden;
+	z-index:999;
+
+	*{ z-index:999; }
+    &.on{
+    	overflow:visible;
+    }	
+}
+	.dropdown-menu__btn{
+		.dropdown-icon{
+			@extend .icon;
+			@extend .icon--natural;
+			position:relative;
+			top:8px;
+			left:-24px;
+			opacity:.7;
+			width:0px;
+			overflow:visible;
+			float:right;
+		}
+
+	}
+
+	.dropdown-menu__menu{
+		position:absolute;
+        top:100%;
+        left:-99999px;
+        margin:0px;
+        width:100%;
+        border:1px solid darken($brand-color, 8%);
+        background-color:white;
+
+        .menu-item, .menu-divider{ list-style:none; }
+
+        .menu-item a
+        {
+        	display:block;
+        	position:relative;
+        	min-width:100%;
+        	min-height:100%;
+			font-family:'Courier',Courier,monospace;
+			font-variant:small-caps;
+			padding:$half-spacing-unit/2;
+			text-decoration:none;
+			@include vendor(text-shadow, none);
+			&:hover{ background-color:darken(#fff, 8%); }
+			&:active{ background-color:darken(#fff, 14%); }
+        }
+
+        .menu-divider{border-top:1px dashed darken($brand-color, 8%);}
+	}
+
+	.dropdown-menu.on{
+		& > .dropdown-menu__menu{ left:0; }
+		& > .dropdown-icon { opacity:1; }
+	}
+
+	.btn--dropdown-menu{
+		position:relative;
+		margin-left:0px;
+		@extend .btn--full;
+		@include vendor(border-radius, 0px);
+		font-family:'Courier',Courier,monospace;
+		font-variant:small-caps;
+		&:hover{ @include vendor(text-shadow, none); }
+		background-color:$brand-color;
+		&:hover{ background-color:darken($brand-color, 8%); }
+		&:active{ background-color:darken($brand-color, 22%); }
+	}
+
+	.dropdown-menu.on > .dropdown-menu__btn{
+		background-color:darken($brand-color, 8%);
+	}

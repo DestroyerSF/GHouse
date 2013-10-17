@@ -1,0 +1,115 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{# for ease of use... #}
+{% set parent_form 			= booking_agents_form %}
+{% set existing_agents_form	= parent_form.existing_booking_agents %}
+{% set new_agents_form	= new_booking_agents_form %}
+
+{% block buttons %}
+	<button class="btn  btn--submit">
+		save
+	</button>
+{% endblock %}
+
+{% block content %}
+<h1 class="dobis-heading  dobis-heading--booking-agents">Booking Agents</h1>
+<form class="form  form--booking-agents-dobis" action="/dobismaster/booking" method="POST" {{ form_enctype(parent_form) }}>
+	{% if message is defined and message is not null %}
+		<p class="form__errors">
+			{{ message|raw }}
+		</p>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<p class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0|raw }}
+		</p>
+	{% endif %}		
+
+	<div class="grid  grid--center">
+		<div class="grid__item  one-half">
+
+			<a class="add-booking-agent  icon-text" data-state="1" href="#"><i class="icon  icon-text__icon" data-icon="&#xF055"></i>Add New Booking Agent</a>
+
+			{% for agent_form in new_booking_agents_form %}
+				<fieldset class="booking-agents-dobis  booking-agents-dobis--new">
+					<div class="inner-contents">
+						<section class="form__input">
+							{{ form_label(agent_form.name, 'Name') }}
+							<div class="input__control">
+								{{ form_widget(agent_form.name) }}
+								<div class="input__error">{{ form_errors(agent_form.name) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(agent_form.email, 'E-mail') }}
+							<div class="input__control">
+								{{ form_widget(agent_form.email) }}
+								<div class="input__error">{{ form_errors(agent_form.email) }}</div>
+							</div>		
+						</section>
+					</div>
+					<a href="#" class="btn  btn--remove-booking-agent" data-type="new">delete</a>
+
+				</fieldset>
+			{% endfor %}			
+
+			{% for agent_form in existing_agents_form %}
+			<fieldset class="booking-agents-dobis  booking-agents-dobis--existing">
+				<div class="inner-contents">
+
+					<section class="form__input">
+						{{ form_label(agent_form.name, 'Name') }}
+						<div class="input__control">
+							{{ form_widget(agent_form.name) }}
+							<div class="input__error">{{ form_errors(agent_form.name) }}</div>
+						</div>
+					</section>
+
+					<section class="form__input">
+						{{ form_label(agent_form.email, 'E-mail') }}
+						<div class="input__control">
+							{{ form_widget(agent_form.email) }}
+							<div class="input__error">{{ form_errors(agent_form.email) }}</div>
+						</div>
+						<p class="input__help">
+							{% set agent = existing_booking_agents[loop.index0] %}
+							{% for artist in agent.managed_artists %}
+								{% if loop.index == 1 %}
+									{{ agent.name }} manages: <a class="managed-artist" target="_blank" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}" title="Edit {{ artist.name }}">{{ artist.name }}</a>{% if loop.revindex > 2 %},{% elseif loop.last %}.{% endif %}
+								{% elseif loop.last %}
+									and <a class="managed-artist" target="_blank" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}" title="Edit {{ artist.name }}">{{ artist.name }}</a>.
+								{% else %}
+									<a class="managed-artist" target="_blank" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}" title="Edit {{ artist.name }}">{{ artist.name }}</a>{% if loop.revindex > 2 %},{% endif %}
+								{% endif %}
+							{% else %}
+								{{ agent.name }} doesn't currently manage any artists.
+							{% endfor %}
+						</p>					
+					</section>
+				</div>
+
+				<a href="#" class="btn  btn--remove-booking-agent" data-type="existing" data-booking-agent-id="{{ agent.id }}">delete</a>
+
+				{{ form_widget(agent_form.id) }}
+				{{ form_widget(agent_form.remove) }}
+
+			</fieldset>
+
+			{% else %}
+
+			<fieldset class="booking-agents-dobis  booking-agents-dobis--no-agents">
+					<h3>There are currently no booking agents.</h3>
+			</fieldset>
+
+			{% endfor %}
+
+		</div>
+	</div>
+	<div class="dobis-wtf">
+		{{ form_rest(parent_form) }}
+	</div>
+</form>
+
+{% endblock content %}

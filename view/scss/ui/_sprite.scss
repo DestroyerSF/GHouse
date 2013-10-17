@@ -1,0 +1,71 @@
+/*------------------------------------*\
+    $SPRITE.SCSS
+\*------------------------------------*/
+@font-face { font-family:'FontAwesome'; src:url('/assets/font/fontawesome-webfont.eot?v=3.0.1'); src:url('/assets/font/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"), url('/assets/font/fontawesome-webfont.woff?v=3.0.1') format("woff"), url('/assets/font/fontawesome-webfont.ttf?v=3.0.1') format("truetype"); font-weight:normal; font-style:normal; }
+@font-face { font-family:'Font-Awesome-Social'; src:url('/assets/font/fontawesome-social-webfont.eot'); src:url('/assets/font/fontawesome-social-webfont.eot?#iefix') format('embedded-opentype'), url('/assets/font/fontawesome-social-webfont.woff') format('woff'), url('/assets/font/fontawesome-social-webfont.ttf') format('truetype'), url('/assets/font/fontawesome-social-webfont.svg#Font-Awesome-More') format('svg'); font-weight:normal; font-style:normal;}
+@font-face{font-family:'Font-Awesome-Corp';src:url('/assets/font/fontawesome-corp-webfont.eot');src:url('/assets/font/fontawesome-corp-webfont.eot?#iefix') format('embedded-opentype'),url('/assets/font/fontawesome-corp-webfont.woff') format('woff'),url('/assets/font/fontawesome-corp-webfont.ttf') format('truetype'),url('/assets/font/fontawesome-corp-webfont.svg#Font-Awesome-More') format('svg');font-weight:normal;font-style:normal;}
+.icon{
+	  font-family:'FontAwesome';
+}
+
+.icon--social{
+	font-family:'Font-Awesome-Social';
+}
+
+
+.icon--corp{
+	font-family:'Font-Awesome-Corp';
+}
+
+
+.icon--dobis-add{ color:$brand-color; font-size:22px; }
+
+
+.sprite{
+	background-image:url(/assets/img/ghouse-logo.png);	/* [1] temp until sprites are in order... */
+	width:32px;
+	height:32px;
+}
+
+.sprite--ghouse{
+	background-position:0px -64px;
+	opacity:0.8;
+
+	&.sprite--large{
+		background-position:32px 0px;
+		width:100px;
+		height:100px;
+	}
+
+	&:hover{
+		opacity:1;
+	}
+
+	&.home{
+		opacity:1;
+	}
+}
+
+
+.sprite--songkick{
+	background-image:url(/assets/img/css/songkick.png);
+	background-size:contain;
+	background-repeat:no-repeat;
+	height:16px;
+	width:16px;
+
+}
+
+
+/* Mixin for setting up social icons...assumes 32x32px sprites */
+@mixin social-icon-setup($color, $startY){
+	.sprite--twitter-#{$color}		{ background-position:0px $startY; }
+	.sprite--spotify-#{$color}		{ background-position:32px $startY; }
+	.sprite--itunes-#{$color}		{ background-position:64px $startY; }
+	.sprite--facebook-#{$color}		{ background-position:96px $startY; }
+	.sprite--email-#{$color}		{ background-position:128px $startY; }
+}
+
+@include social-icon-setup("white", 0px);
+@include social-icon-setup("black", 32px);
+@include social-icon-setup("orange", 64px);

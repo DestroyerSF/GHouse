@@ -1,0 +1,77 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block meta_tags %}
+{% set description = "Music Collective." %}
+{% set title = "GHouse — Music Collective" %}
+
+<meta name="description" content="{{ description }}">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@GHouse">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ app.assets_url }}/img/ghouse-logo-new.png">
+<meta name="twitter:url" content="{{ app.base_url }}">
+
+<meta property="og:description" content="{{ description }}">
+<meta property="og:image" content="{{ app.assets_url }}/img/ghouse-logo-new.png">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:url" content="{{ app.base_url }}">
+<meta property="og:site_name" content="GHouse">
+<meta property="og:type" content="website">
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include 'partials/spotlight.html.twig' %}
+
+<div class="labels-bar">
+	<div class="grid">
+		
+		<div class="grid__item  one-fifth  portable-one-whole">
+			<div class="labels-bar__header">
+				<h2>music</h2>
+				<h3>filter by label</h3>
+			</div>
+		</div><!--
+
+		--><div class="grid__item  four-fifths  portable-one-whole">
+			<div class="labels-bar__labels-grid">
+					
+					{% for label in app.labels %}<div class="labels-grid__label  {{ app.labels_width }}">
+						<a class="btn  img-btn  img-btn--label" href="#" data-toggle="label-filter" data-label-slug="{{ label.slug }}">
+							<img src="{{ app.base_url }}/img/label/{{ label.slug }}.{{ label.picture_ext }}"/>
+							<div class="caption">
+								<div class="caption__backdrop"></div>
+								<div class="caption__content">{{ label.name|raw }}</div>
+							</div>
+						</a>
+					</div>{% endfor %}
+
+			</div>
+		</div><!--
+
+	 --><div class="labels-bar__border"><div></div></div>
+
+	</div>
+</div>
+
+
+<div class="artists-grid">
+
+		{% for artist in app.artists %}<div class="artists-grid__artist" data-label-slug="{% if artist.labels is defined %}{% for label in artist.labels %}{{ label.slug }}{% if loop.last != true %}|{% endif %}{% endfor %}{% endif %}">
+			<a class="btn  img-btn  img-btn--artist" href="{{ app.base_url }}/{{ artist.slug }}">
+				<img src="{{ artist.picture_url }}"/>
+				<div class="caption">
+					<div class="caption__backdrop"></div>
+					<div class="caption__content">{{ artist.name|raw }}</div>
+				</div>
+			</a>
+		</div>{% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+/*------------------------------------*\
+    $DOBIS-PAGE.SCSS
+\*------------------------------------*/
+/*body*/.dobis{ border-color:#555; }
+
+.dobis-header{
+	height:$base-spacing-unit*2.5;
+	border-bottom:solid #ccc 1px;
+	padding-bottom:$half-spacing-unit;
+	margin-bottom:$base-spacing-unit;
+	clear:both;
+	display:block;
+
+	.btn{
+		@include media-query(portable){
+			padding:2px 6px;
+		}
+	}
+}
+
+.dobis-wtf{
+	display:none;
+	position:absolute;
+	left:-9999px;
+}
+
+.artists-grid--dobis{
+
+}
+
+.footer--dobis{
+
+	@extend .grid--full;
+	margin-top:$base-spacing-unit*2;
+
+	.footer__branding{
+		@extend .text--center;
+		margin-left:-$base-spacing-unit;
+		width:100%!important;
+	}
+}
+
+
+.confirm{
+	&,p{
+		text-align:center;
+	}
+
+	p{
+		@extend .lead;
+	}
+
+	.btn{
+		width:$base-spacing-unit*4;
+	}
+}
+
+
+.dobis-heading{
+	@extend .mega;
+	font-weight:100;
+	color:$brand-color;
+	text-transform:uppercase;
+	text-align:center;
+}
+
+.dropdown-menu--dobisnav{
+	@extend .float--right;
+	margin-left:$half-spacing-unit/2;
+	width:$base-spacing-unit*6;
+
+	.dropdown--menu__btn{ @extend .btn--full; }
+}

@@ -1,0 +1,87 @@
+/*------------------------------------*\
+    $FORM.SCSS
+\*------------------------------------*/
+.form{
+	fieldset{
+		border:none;
+	}
+}
+	.form__notice, .form__errors{
+		@extend .lead;
+		@extend .text--center;
+	}
+
+	.form__errors{
+		color:red;
+		&:before{
+			content:"↓ ";
+		}		
+	}
+
+	.form__notice{
+		color:green;
+	}
+
+	.form__input{
+		margin-bottom:$base-spacing-unit;
+
+	}
+
+	.form__input--full{
+	    input,select{ width:100%; }
+	}
+		.input__help{
+			margin-bottom:0px;
+		}
+
+		.input__error, .form__error{
+			color:red;
+
+			ul{
+				margin:0px;
+				li{
+					list-style:none;
+					&:before{
+						content:"↑ ";
+					}
+				}
+			}
+		}
+
+.form--login{
+	@extend .grid;
+	@extend .grid--center;
+
+
+	fieldset{
+		@extend .grid__item;
+		@extend .one-quarter;
+		@extend .palm-one-half;
+		@include media-query(portable){ padding-left:0px; padding-right:0px; }
+	}
+
+	.form__input{
+		@extend .form__input--full;
+	}
+
+}
+
+	.dobis-legend{
+		text-align:center;
+		@extend .lead;
+		color:lighten(#555, 20%);
+		padding-bottom:$half-spacing-unit;
+		width:100%;
+		margin-bottom:$base-spacing-unit;
+	}
+
+/*a*/.form__add-section{
+		position:relative;
+		z-index:1;
+		float:right;		
+		height:0px; 
+		top:-$base-spacing-unit;
+		text-decoration:none;
+		&:hover{ text-decoration:underline; }
+		&:active{ color:darken($brand-color, 20%); }
+	} 

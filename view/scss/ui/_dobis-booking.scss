@@ -1,0 +1,35 @@
+/*------------------------------------*\
+    $DOBIS-BOOKING.SCSS
+\*------------------------------------*/
+.dobis-heading--booking-agents{ margin-bottom:$base-spacing-unit*2; }
+
+.form--booking-agents-dobis{
+
+	.booking-agents-dobis{ padding:$base-spacing-unit $base-spacing-unit $base-spacing-unit $base-spacing-unit; border-top:solid #555 2px; }
+
+	/*fieldset*/.booking-agents-dobis--new{ background:lighten($brand-color, 30%); margin-bottom:$base-spacing-unit; }
+	/*fieldset*/.booking-agents-dobis--existing{ background:darken(#fff, 8%); }
+	/*fieldset*/.booking-agents-dobis--no-agents{ background:darken(#fff, 8%); text-align:center; }
+
+	input,textarea{ @extend .scalable; }
+
+	label { font-weight:600; }
+
+	.input__help{
+		@include font-size(12px);
+		font-style:italic;
+
+		.managed-artist{
+			font-style:normal;
+			&:after{
+				content:" \f08e";
+				font-family:'FontAwesome';
+				text-decoration:none;
+				opacity:.6;
+			}
+		}
+	}
+
+}
+
+	.add-booking-agent{ @extend .form__add-section; }

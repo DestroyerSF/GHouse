@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    
+    <title>
+        DobisMaster {% if page_title is defined %} &mdash; {{ page_title|raw }}{% endif %}
+    </title>
+    <link href='http://fonts.googleapis.com/css?family=Cantarell:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ app.css_url }}/styles.min.css">
+    
+    <link rel="shortcut icon" href="icon.png">{# do this #}
+    <link rel="apple-touch-icon-precomposed" href="icon.png">{# do this #}
+    <meta name="apple-mobile-web-app-title" content="GHouse">
+    <link type="text/plain" rel="author" href="humans.txt">
+
+    <script data-main="/assets/js/scripts/{% if page_script is defined %}{{ page_script }}{% else %}main{% endif %}" src="{{ app.js_url }}/scripts/require-jquery.js"></script>
+</head>
+<body class="dobis">
+
+	<div class="wrapper">
+        <div class="preload-sprites">
+            <img src="/assets/img/ghouse-logo.png">
+        </div>
+
+        {% if app.session.get('dobis_user') %}
+        <div class="dobis-header">
+            <div class="dobis-logo  dobis-logo--small">
+                <a href="/dobismaster/">
+                    <h1 class="regular-logo">dobismaster</h1>
+                    <h1 class="mobile-logo">dm</h1>
+                </a>
+            </div>
+            
+            <a href="/dobismaster/logout" class="btn  btn--logout">
+                log out
+            </a>
+
+            <div class="dropdown-menu  dropdown-menu--dobisnav">
+                <button class="btn  dropdown-menu__btn  btn--dropdown-menu">
+                    management <i class="dropdown-icon" data-icon="&#xF0DD"></i>
+                </button>
+
+                <ul class="dropdown-menu__menu">
+                    <li class="menu-item">
+                        <a href="/dobismaster/" title="Artist Management">
+                            artists
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/dobismaster/labels" title="Label Management">
+                            labels
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/dobismaster/booking" title="Booking Agent Management">
+                            booking
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/dobismaster/header-blocks" title="Header Block Management">
+                            header blocks
+                        </a>
+                    </li>
+                    <li class="menu-divider"></li>
+                    <li class="menu-item">
+                        <a href="/dobismaster/account" title="Account Settings">
+                            account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            {% block buttons %}{% endblock %}
+        </div>
+        {% else %}
+        <div class="dobis-logo  dobis-logo--large">
+            <h1>dobismaster<sub></h1>
+        </div>
+        {% endif %}
+
+		{% block content %}{% endblock %}
+        
+
+        <div class="footer  footer--dobis">
+            
+            <div class="footer__branding">
+                <a href="{{ app.base_url }}" title="GHouse" target="_blank">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="sprite  sprite--ghouse">
+                </a>
+                
+            </div>
+
+        </div><!-- /footer -->
+
+	</div> <!-- /wrapper -->
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<img src="{{ app.base_url }}/img/artist/{{ app.artist.slug }}/releases/{{ featured_release.slug }}.{{ featured_release.picture_ext }}">
+{% if featured_release.spotify_uri != '' %}
+<iframe class="spotify_player--artist_page" src="https://embed.spotify.com/?uri={{ featured_release.spotify_uri }}" frameborder="0" allowtransparency="true"></iframe>
+{% elseif featured_release.bandcamp_album_id != '' %}
+<iframe class="bandcamp_player--artist_page" src="http://bandcamp.com/EmbeddedPlayer/album={{ featured_release.bandcamp_album_id }}/size=medium/bgcol=ffffff/linkcol=333333/transparent=true/" seamless></iframe>
+{% endif %}
+
+<div class="grid--center  release-buttons">
+	<div class="grid__item  one-half">
+		<a href="{{ featured_release.tweet_link }}" rel="tweet" class="btn  btn--full  btn--lrg  btn--twitter">
+			<i class="icon" data-icon="&#xF099"></i>Share
+		</a>
+	</div>{% if featured_release.itunes_url is not null %}<!--
+--><div class="grid__item  one-half">
+		<a href="{{ featured_release.itunes_url }}" class="btn  btn--full  btn--lrg  btn--twitter" target="_blank">
+			<i class="icon  icon--corp" data-icon="&#xF344"></i>Buy
+		</a>
+	</div>{% endif %}
+</div>

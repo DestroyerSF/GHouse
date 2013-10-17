@@ -1,0 +1,50 @@
+{% extends 'dobis-layout.html.twig' %}
+{% set page_script = 'dobis-labels' %}
+
+{% block buttons %}
+	<button class="btn  btn--submit">
+		save
+	</button>
+{% endblock %}
+
+{% block content %}
+
+<h1 class="dobis-heading">Labels</h1>
+
+{% if app.session.getFlashBag().has('notice') %}
+	<p class="form__notice">
+		{{ app.session.getFlashBag().get('notice').0|raw }}
+	</p>
+{% endif %}
+
+<form class="form  form--labels-dobis" action="/dobismaster/labels" method="POST" {{ form_enctype(form) }}>
+	<legend class="dobis-legend">
+		Click <i class="icon  icon--dobis-add" data-icon="&#xF055"></i> to add a new label.<br>
+		Click a label to edit its name/image.<br>
+		Click and drag <div class="drag-handle-dummy"></div> to re-order.
+	</legend>
+{{ form_rest(form) }}
+</form>
+
+<ul class="labels-grid  labels-grid--dobis  js-labels-sort">
+		<li class="labels-grid__label  labels-grid__label--add  {{ app.labels_width }}  ui-state-default  ui-state-disabled">
+			<a class="btn  img-btn" href="{{ app.base_url }}/dobismaster/labels/new">
+				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="class="img-btn__img">
+				<i class="icon" data-icon="&#xF055"></i>
+			</a>
+		</li><!--
+
+	-->{% for label in app.labels %}<li data-slug="{{ label.slug }}" class="labels-grid__label  {{ app.labels_width }}  ui-state-default">
+			<div class="drag-handle"></div>
+			<a class="btn  img-btn  img-btn--label" href="{{ app.base_url }}/dobismaster/labels/{{ label.slug }}">
+				<img class="img-btn__img" src="{{ app.base_url }}/img/label/{{ label.slug }}.{{ label.picture_ext }}"/>
+				<div class="caption">
+					<div class="caption__backdrop"></div>
+					<div class="caption__content">{{ label.name|raw }}</div>
+				</div>
+			</a>
+		</li>{% endfor %}
+
+</ul>
+
+{% endblock content %}

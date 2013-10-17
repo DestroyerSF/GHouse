@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    $IMAGES.SCSS
+\*------------------------------------*/
+/*img*/.scalable{
+	display:block;
+	width:100%!important;
+	max-width:100%;
+	margin:0px auto;
+	/* for divs with background images... */
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center center;
+}

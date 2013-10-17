@@ -1,0 +1,16 @@
+/*------------------------------------*\
+    $DOBIS-ACCOUNT.SCSS
+\*------------------------------------*/
+.form--account-dobis{
+	.account-dobis{ padding:$base-spacing-unit $base-spacing-unit $base-spacing-unit $base-spacing-unit; border-top:solid #555 2px; background:darken(#fff, 8%);}
+
+	.form__input { @extend .form__input--full; }
+
+	label { font-weight:600; }
+
+	.input__help{
+		@include font-size(12px);
+		font-style:italic;
+	}
+
+}

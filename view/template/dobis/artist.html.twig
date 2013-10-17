@@ -1,0 +1,349 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{# for ease of use... #}
+{% set artist_form 		= parent_form.artist %}
+{% set release_forms	= parent_form.releases %}
+
+
+{% block buttons %}
+	{% if artist.id is defined %}
+		<button class="btn  btn--submit">
+			save
+		</button>		
+		<a href="{{ app.base_url }}/{{ artist.slug }}" class="btn  btn--view-artist" target="_blank">
+			view
+		</a>		
+	{% else %}
+		<button class="btn  btn--submit">
+			create & save
+		</button>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+<form class="form  form--artist-dobis" action="/dobismaster/artists/{{ app.request.get('artist_slug') }}" method="POST" {{ form_enctype(parent_form) }}>
+	{% if message is defined and message is not null %}
+		<p class="form__errors">
+			{{ message }}
+		</p>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<p class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0 }}
+		</p>
+	{% endif %}		
+
+	<div class="grid">
+		<div class="grid__item  one-half  palm-one-whole">
+			<h2>Artist</h2>
+			<fieldset class="artist-dobis">
+
+				<section class="form__input" rel="slugify" data-type="artist">
+					{{ form_label(artist_form.name, 'Name') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.name) }}
+						<p class="input__help">URL:&nbsp;{{ app.base_url }}/<b class="ajax--artist">{% if artist.slug is defined %}{{ artist.slug }}{% else %}{ artist }{% endif %}</b></p>
+						<div class="input__error">{{ form_errors(artist_form.name) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.location, 'Location') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.location) }}
+						<div class="input__error">{{ form_errors(artist_form.location) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.twitter_handle, 'Twitter Handle') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.twitter_handle) }}
+						<p class="input__help">Omit the @.</p>
+						<div class="input__error">{{ form_errors(artist_form.twitter_handle) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.twitter_card_description, 'Twitter Card Description') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.twitter_card_description) }}
+						<p class="input__help">Optional. Defaults to "{artist} on GHouse." Limit 200 characters.</p>
+						<div class="input__error">{{ form_errors(artist_form.twitter_card_description) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.new_picture, 'Artist Picture') }}
+					<div class="input__control">
+						{% if artist.picture_ext is defined and artist.picture_ext is not null %}
+						<img src="{{ artist.picture_url }}" class="one-third  js-artist-image-preview">
+						{% endif %}
+						{{ form_widget(artist_form.new_picture) }}
+						<a href="#" class="btn  btn--remove-picture{% if artist.picture_ext is not defined or artist.picture_ext is null %}  hide  js-no-picture{% endif %}">
+							remove artist picture
+						</a>
+						<p class="input__help">Optional. Will default to latest album. Leave blank for no change.</p>
+						<div class="input__error">{{ form_errors(artist_form.new_picture) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.songkick_artist_id, 'Songkick Artist ID') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.songkick_artist_id) }}
+						<p class="input__help">http://www.songkick.com/artists/<b>XXXXXXX</b>-some-band</p>
+						<div class="input__error">{{ form_errors(artist_form.songkick_artist_id) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.smart_url, 'Smart URL') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.smart_url) }}
+						<p class="input__help">Optional. Enter a smart URL here that's linked to the artist's page on GHouse.</p>
+						<div class="input__error">{{ form_errors(artist_form.smart_url) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.smart_url, 'Smart URL') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.smart_url) }}
+						<p class="input__help">Optional. Enter a smart URL here that's linked to the artist's page on GHouse.</p>
+						<div class="input__error">{{ form_errors(artist_form.smart_url) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(artist_form.booking_agent, 'Booking Agent') }}
+					<div class="input__control">
+						{{ form_widget(artist_form.booking_agent) }}
+						<div class="input__error">{{ form_errors(artist_form.booking_agent) }}</div>
+					</div>
+				</section>				
+
+				{% if artist.slug is defined %}
+				<a href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}/delete" class="btn  btn--remove-artist">delete artist</a>
+				{% endif %}
+
+			</fieldset>
+		</div><!--
+
+	 --><div class="grid__item  one-half  palm-one-whole">
+	 		<h2>
+	 			Releases	 				
+	 		</h2>
+
+	 		<a class="add-release  icon-text" data-state="1" href="#"><i class="icon  icon-text__icon" data-icon="&#xF055"></i>Add New Release</a>
+
+			{% if new_releases_form != false %}
+	 			{% for key, release_form in new_releases_form %}
+					<fieldset class="release-dobis">
+
+						<div class="inner-contents">
+							<section class="form__input">
+								{{ form_label(release_form.name, 'Name') }}
+								<div class="input__control">
+									{{ form_widget(release_form.name) }}
+									<p class="input__help"></p>
+									<div class="input__error">{{ form_errors(release_form.name) }}</div>
+								</div>
+							</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.new_picture, 'Album Cover') }}
+								<div class="input__control">
+									{{ form_widget(release_form.new_picture) }}
+									<div class="input__error">{{ form_errors(release_form.new_picture) }}</div>
+								</div>
+							</section>				
+
+							<section class="form__input">
+								{{ form_label(release_form.release_date, 'Release Date') }}
+								<div class="input__control">
+									{{ form_widget(release_form.release_date) }}
+									<p class="input__help">Used for sorting purposes only; not displayed anywhere.</p>
+									<div class="input__error">{{ form_errors(release_form.release_date) }}</div>
+								</div>
+							</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.label_id, 'Label') }}
+								<div class="input__control">
+									{{ form_widget(release_form.label_id) }}
+									<p class="input__help"></p>
+									<div class="input__error">{{ form_errors(release_form.label_id) }}</div>
+								</div>
+							</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.twitter_card_description, 'Twitter Card Description') }}
+							<div class="input__control">
+								{{ form_widget(release_form.twitter_card_description) }}
+								<p class="input__help">Optional. Defaults to "{ release name } by {artist} on GHouse." Limit 200 characters.</p>
+								<div class="input__error">{{ form_errors(release_form.twitter_card_description) }}</div>
+							</div>
+						</section>				
+
+							<section class="form__input">
+								{{ form_label(release_form.spotify_uri, 'Spotify URI') }}
+								<div class="input__control">
+									{{ form_widget(release_form.spotify_uri) }}
+									<p class="input__help">Optional. Overrides Bandcamp player if set. Copy and paste <a href="https://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/" target="_blank">from spotify</a>.</p>
+									<div class="input__error">{{ form_errors(release_form.spotify_uri) }}</div>
+								</div>
+							</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.bandcamp_album_id, 'Bandcamp Album ID') }}
+								<div class="input__control">
+									{{ form_widget(release_form.bandcamp_album_id) }}
+									<p class="input__help">
+										Optional. Copy from the embed code's <code><iframe></code> src attribute.<br>
+										http://bandcamp.com/EmbeddedPlayer/album=<b>XXXXXXXXX</b>/size=medium/bgcol=ffffff/linkcol=333333/transparent=true/
+									</p>
+									<div class="input__error">{{ form_errors(release_form.bandcamp_album_id) }}</div>
+								</div>
+							</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.itunes_url, 'iTunes URL') }}
+								<div class="input__control">
+									{{ form_widget(release_form.itunes_url) }}
+									<p class="input__help"></p>
+									<div class="input__error">{{ form_errors(release_form.itunes_url) }}</div>
+								</div>
+							</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.smart_url, 'Smart URL') }}
+								<div class="input__control">
+									{{ form_widget(release_form.smart_url) }}
+									<p class="input__help">Optional. Enter the smart URL here that you've to the release's page on GHouse.</p>
+									<div class="input__error">{{ form_errors(release_form.smart_url) }}</div>
+								</div>
+							</section>
+
+						</div>
+
+						<button class="btn  btn--remove-release" data-type="new">delete</button>
+
+			 		</fieldset>
+	 			{% endfor %}
+	 		{% endif %}
+
+	 		{% if release_forms.existing_releases is defined %}
+		 		{% for release_id, release_form in release_forms.existing_releases %}
+		 		<fieldset class="release-dobis">
+		 			<div class="inner-contents">
+						<section class="form__input" rel="slugify" data-type="release">
+							{{ form_label(release_form.name, 'Name') }}
+							<div class="input__control">
+								{{ form_widget(release_form.name) }}
+								<p class="input__help">URL:&nbsp;{{ app.base_url }}/<b class="ajax--artist">{{ artist.slug }}</b>/<b class="ajax--release">{{ releases[loop.index0].slug }}</b></p>
+								<div class="input__error">{{ form_errors(release_form.name) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.new_picture, 'Album Cover') }}
+							<div class="input__control">
+								<img src="{{ app.base_url }}/img/artist/{{ artist.slug }}/releases/{{ releases[loop.index0].slug }}.{{ releases[loop.index0].picture_ext }}"  class="one-third">
+								{{ form_widget(release_form.new_picture) }}
+								<p class="input__help">Leave blank for no change.</p>
+								<div class="input__error">{{ form_errors(release_form.new_picture) }}</div>
+							</div>
+						</section>				
+
+						<section class="form__input">
+							{{ form_label(release_form.release_date, 'Release Date') }}
+							<div class="input__control">
+								{{ form_widget(release_form.release_date) }}
+								<p class="input__help">Used for sorting purposes only; not displayed anywhere.</p>
+								<div class="input__error">{{ form_errors(release_form.release_date) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.label_id, 'Label') }}
+							<div class="input__control">
+								{{ form_widget(release_form.label_id) }}
+								<p class="input__help"></p>
+								<div class="input__error">{{ form_errors(release_form.label_id) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.twitter_card_description, 'Twitter Card Description') }}
+							<div class="input__control">
+								{{ form_widget(release_form.twitter_card_description) }}
+								<p class="input__help">Optional. Defaults to "{ release name } by {artist} on GHouse." Limit 200 characters.</p>
+								<div class="input__error">{{ form_errors(release_form.twitter_card_description) }}</div>
+							</div>
+						</section>						
+
+						<section class="form__input">
+							{{ form_label(release_form.spotify_uri, 'Spotify URI') }}
+							<div class="input__control">
+								{{ form_widget(release_form.spotify_uri) }}
+								<p class="input__help">Optional. Copy and paste <a href="https://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/" target="_blank">from spotify</a>.</p>
+								<div class="input__error">{{ form_errors(release_form.spotify_uri) }}</div>
+							</div>
+						</section>
+
+							<section class="form__input">
+								{{ form_label(release_form.bandcamp_album_id, 'Bandcamp Album ID') }}
+								<div class="input__control">
+									{{ form_widget(release_form.bandcamp_album_id) }}
+									<p class="input__help">
+										Optional. Copy from the embed code's <b>&lt;iframe&gt; src</b> attribute.<br>
+										<code>&lt;iframe src="http://bandcamp.com/EmbeddedPlayer/album=<b>XXX</b>/&hellip;"&gt;</code>
+									</p>
+									<div class="input__error">{{ form_errors(release_form.bandcamp_album_id) }}</div>
+								</div>
+							</section>						
+
+						<section class="form__input">
+							{{ form_label(release_form.itunes_url, 'iTunes URL') }}
+							<div class="input__control">
+								{{ form_widget(release_form.itunes_url) }}
+								<p class="input__help"></p>
+								<div class="input__error">{{ form_errors(release_form.itunes_url) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.smart_url, 'Smart URL') }}
+							<div class="input__control">
+								{{ form_widget(release_form.smart_url) }}
+								<p class="input__help">Optional. Enter the smart URL that you've linked to the release's page on GHouse.</p>
+								<div class="input__error">{{ form_errors(release_form.smart_url) }}</div>
+							</div>
+						</section>
+					</div>
+
+					<button class="btn  btn--remove-release" data-type="existing" data-release-id="{{ releases[loop.index0].id }}">delete release</button>
+
+					{{ form_widget(release_form.id) }}
+					{{ form_widget(release_form.remove) }}
+		 		</fieldset>
+		 		{% endfor %}
+		 	{% elseif new_releases_form == false %}
+		 		<section class="no-release">
+		 			<h3>No releases.</h3>
+		 			<p class="lead">
+		 				You can wait til later to add releases, but until you do the artist's page will just redirect back to the homepage at {{ app.base_url }}.
+		 			</p>
+		 		</section>
+		 	{% endif %}
+		</div>
+	</div>
+	
+	<div class="dobis-wtf">
+		{{ form_rest(parent_form) }}
+	</div>
+</form>
+
+{% endblock content %}

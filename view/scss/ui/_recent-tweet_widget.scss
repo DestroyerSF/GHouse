@@ -1,0 +1,126 @@
+/*------------------------------------*\
+    $RECENT-TWEET.SCSS
+\*------------------------------------*/
+.recent-tweet{
+	@extend .media;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:$half-spacing-unit;
+	max-width:$base-spacing-unit*16;
+
+	@include media-query(desk){
+		padding:$half-spacing-unit*1.5 $base-spacing-unit ($half-spacing-unit*1.5 - 1) $base-spacing-unit;
+		margin-bottom:0px;
+	}
+
+	@include media-query(lap){
+		padding:$half-spacing-unit 0px ($half-spacing-unit - 2) 0px $half-spacing-unit;
+		margin-bottom:0px;
+	}	
+	
+
+	.recent-tweet__profile-picture {
+		@extend .media__img;
+		margin:auto $half-spacing-unit auto 0px;
+		max-width:48px;
+		min-height:48px;
+	}
+
+	.recent-tweet__body{
+		@extend .media__body;
+
+		&.tweet-text--extra-small{
+			font-size:14px;
+			line-height:48px;
+			@include media-query(portable){ font-size:12px; }
+		}
+
+		&.tweet-text--small{
+			font-size:14px;
+			line-height:24px;
+			@include media-query(portable){ font-size:12px; line-height:16px; }
+		}
+
+		&.tweet-text--medium{
+			font-size:12px;
+			line-height:16px;
+			@include media-query(portable){ font-size:9px; }
+		}
+
+		&.tweet-text--big{
+			font-size:11px;
+			line-height:12px;
+			@include media-query(portable){ font-size:9px; }
+		}
+
+
+		.ext_link{ color:darken(#4099FF, 60%) }
+
+		.hashtag, .mention{
+			color:darken(#4099FF, 32%);
+			text-decoration:none;
+
+			&:hover{
+				text-decoration:underline;
+			}
+
+		}
+
+		.handle{
+			text-decoration:none;
+			font-weight:600;
+			color:#4099FF;
+			&:hover{
+				text-decoration:underline;
+			}
+		}			
+
+		.icon{
+			color:#4099FF;
+			font-size:12px;
+			line-height:12px;
+			width:.75rem;
+			height:.75rem;
+			margin-left:2px;
+		}		
+	}
+
+
+}
+
+
+
+.tweet-wrapper{
+	@include media-query(lap-and-up){
+		border-left:solid 1px #ccc;
+		height:100%;
+		min-height:100%;	
+	}
+
+	@include media-query(palm){
+		border-top:solid 1px #ccc;
+		padding-top:$half-spacing-unit;
+	}
+}
+
+
+// .artist__full-tweet{
+// 	@extend .grid__item;
+// 	@extend .one-whole;
+
+// 	.tweet-wrapper
+// 	{
+// 		border-bottom:solid 1px #ccc;
+// 		padding-bottom:$base-spacing-unit;
+// 		margin-bottom:$base-spacing-unit;
+// 		text-align:center;
+
+// 		.recent-tweet{
+// 			text-align:left;
+// 			margin:0px auto;
+// 			display:inline-block;
+// 		}
+
+
+// 	}
+// }

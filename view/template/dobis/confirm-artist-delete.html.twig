@@ -1,0 +1,12 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{% block content %}
+
+<section class="confirm">
+	<p>Are you sure you wish to delete <b>{{ artist.name }}</b>{% if artist.releases.0 is defined %} and <b>{{ artist.release_count }}</b> associated release(s){% endif %}?</p>
+
+	<a class="btn  btn--negative" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}">No</a>
+	<a class="btn  btn--positive" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}/delete/confirm">Yes</a>
+</section>
+
+{% endblock %}

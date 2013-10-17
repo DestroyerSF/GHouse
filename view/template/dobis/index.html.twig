@@ -1,0 +1,37 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{% block buttons %}
+{% endblock %}
+
+{% block content %}
+<h1 class="dobis-heading">Artists</h1>
+{% if app.session.getFlashBag().has('notice') %}
+	<p class="form__notice">
+		{{ app.session.getFlashBag().get('notice').0 }}
+	</p>
+{% endif %}
+	<p class="dobis-legend">
+		Click <i class="icon  icon--dobis-add" data-icon="&#xF055"></i> to add a new artist.<br>
+		Click an artist to edit info & releases.<br>
+	</p>
+<div class="artists-grid  artists-grid--dobis">
+		<div class="artists-grid__artist  artists-grid__artist--add">
+			<a class="btn  img-btn" href="{{ app.base_url }}/dobismaster/artists/new">
+				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="class="img-btn__img">
+				<i class="icon" data-icon="&#xF055"></i>
+			</a>
+		</div><!--
+
+	-->{% for artist in app.artists %}<div class="artists-grid__artist">
+			<a class="btn  img-btn  img-btn--artist" href="{{ app.base_url }}/dobismaster/artists/{{ artist.slug }}">
+				<img class="img-btn__img" src="{{ artist.picture_url }}"/>
+				<div class="caption">
+					<div class="caption__backdrop"></div>
+					<div class="caption__content">{{ artist.name|raw }}</div>
+				</div>
+			</a>
+		</div>{% endfor %}
+
+</div>
+
+{% endblock content %}

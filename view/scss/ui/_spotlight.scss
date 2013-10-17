@@ -1,0 +1,57 @@
+/*------------------------------------*\
+    $SPOTLIGHT.SCSS
+\*------------------------------------*/
+.spotlight{
+	margin-bottom: $base-spacing-unit;
+}
+
+	.spotlight__feature{
+		opacity:0.95;
+		@include vendor(transition, opacity 0.1s ease-in);
+		@include vendor(transition, opacity 0.5s ease-out);
+
+		&:hover,&:active{  /* :active so it transitions on touch actions  */
+			opacity:1;	
+		}
+
+		section{
+			opacity:inherit;
+			height:inherit;
+			background-size:cover;
+			background-position:center center;
+			position:relative;
+
+			header{
+				position:absolute;
+				margin-bottom:0px;
+				bottom:0px;
+				width:100%;
+				background:#444;
+				color: #fcfcfc;
+				padding:$base-spacing-unit/3 $base-spacing-unit/2;
+				font-weight:600;
+			}
+		}
+
+	}
+
+	.spotlight__feature--main{
+		height:$base-spacing-unit*12;
+	}
+
+	.spotlight__feature--subfeature{
+		width:100%;
+		height:$base-spacing-unit*3;
+		line-height:0px;
+		// padding-top:$base-spacing-unit;
+		opacity:0.8;
+
+		section{
+
+			header{
+				@include font-size(12px);
+				padding:$base-spacing-unit/6 $base-spacing-unit/4;
+			}
+		}
+
+	}

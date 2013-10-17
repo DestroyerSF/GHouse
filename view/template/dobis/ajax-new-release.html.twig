@@ -1,0 +1,78 @@
+{% set release_form = new_releases_form[release_no] %}
+				<fieldset class="release-dobis">
+					<div class="inner-contents">
+						<section class="form__input">
+							{{ form_label(release_form.name, 'Name') }}
+							<div class="input__control">
+								{{ form_widget(release_form.name) }}
+								<p class="input__help"></p>
+								<div class="input__error">{{ form_errors(release_form.name) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.new_picture, 'Album Cover') }}
+							<div class="input__control">
+								{{ form_widget(release_form.new_picture) }}
+								<div class="input__error">{{ form_errors(release_form.new_picture) }}</div>
+							</div>
+						</section>				
+
+						<section class="form__input">
+							{{ form_label(release_form.release_date, 'Release Date') }}
+							<div class="input__control">
+								{{ form_widget(release_form.release_date) }}
+								<p class="input__help">Used for sorting purposes only; not displayed anywhere.</p>
+								<div class="input__error">{{ form_errors(release_form.release_date) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.label_id, 'Label') }}
+							<div class="input__control">
+								{{ form_widget(release_form.label_id) }}
+								<p class="input__help"></p>
+								<div class="input__error">{{ form_errors(release_form.label_id) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.twitter_card_description, 'Twitter Card Description') }}
+							<div class="input__control">
+								{{ form_widget(release_form.twitter_card_description) }}
+								<p class="input__help">Optional. Defaults to "{ release name } by {artist} on GHouse." Limit 200 characters.</p>
+								<div class="input__error">{{ form_errors(release_form.twitter_card_description) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.spotify_uri, 'Spotify URI') }}
+							<div class="input__control">
+								{{ form_widget(release_form.spotify_uri) }}
+								<p class="input__help">Optional. Copy and paste <a href="https://www.spotify.com/us/blog/archives/2008/01/14/linking-to-spotify/" target="_blank">from spotify</a>.</p>
+								<div class="input__error">{{ form_errors(release_form.spotify_uri) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.itunes_url, 'iTunes URL') }}
+							<div class="input__control">
+								{{ form_widget(release_form.itunes_url) }}
+								<p class="input__help"></p>
+								<div class="input__error">{{ form_errors(release_form.itunes_url) }}</div>
+							</div>
+						</section>
+
+						<section class="form__input">
+							{{ form_label(release_form.smart_url, 'Smart URL') }}
+							<div class="input__control">
+								{{ form_widget(release_form.smart_url) }}
+								<p class="input__help">Optional. Enter a smart URL here that's linked to the release's page on GHouse.</p>
+								<div class="input__error">{{ form_errors(release_form.smart_url) }}</div>
+							</div>
+						</section>
+
+					</div>
+
+					<button class="btn  btn--remove-release" data-type="new">delete release</button>
+		 		</fieldset>

@@ -1,0 +1,39 @@
+{% extends 'dobis-layout.html.twig' %}
+{% block content %}
+
+<form class="form  form--login" action="/dobismaster/login" method="POST">
+	{% if message is not null %}
+		<section class="form__errors">
+			Invalid dengus or paynuss. Please try again.
+		</section>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<section class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0 }}
+		</section>
+	{% endif %}	
+
+	<fieldset>
+
+		<section class="form__input">
+			<div class="input__control">
+				{{ form_widget(form.username, { 'attr': { 'autocomplete': 'off' } }) }}
+			</div>
+		</section>
+
+		<section class="form__input">
+			<div class="input__control">
+				{{ form_widget(form.password) }}
+			</div>
+		</section>
+
+		<section class="form__actions">
+			{{ form_rest(form) }}
+			<input class="btn  btn--full  btn--login" type="submit" value="tengus" />
+		</section>
+
+	</fieldset>
+</form>
+
+{% endblock content %}

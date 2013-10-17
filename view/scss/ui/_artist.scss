@@ -1,0 +1,150 @@
+/*------------------------------------*\
+    $ARTIST.SCSS
+\*------------------------------------*/
+.artist{ @extend .one-whole; }
+	
+	.heading-wrapper{ border-bottom:solid 1px #ccc; }
+
+	.artist__heading{ @extend .grid }
+
+		.heading__title, .heading__tweet {
+			@extend .grid__item;
+			@extend .palm-one-whole;
+		}
+
+		.heading__title{
+			@extend .five-eighths;
+			@extend .lap-three-fifths;
+
+			@include media-query(palm){
+				text-align:center;
+				margin-bottom:$half-spacing-unit
+			}
+			
+			hgroup{
+				margin-bottom:0px;
+
+				h1,h3{ @extend .hN; }
+
+				h1{
+					@extend .kilo;
+					@include media-query(palm){
+						@include font-size(38px);
+					}
+				}
+
+				h3{
+					@include media-query(portable){
+						@include font-size(18px);
+						font-weight:300;
+					}
+				}		
+			}
+
+		}
+
+		.heading__title--full{ width:100%!important; text-align:center; }
+
+	.heading__tweet{
+		@extend .three-eighths;
+		@extend .lap-two-fifths;
+	}
+
+	.artist__shows{
+		@extend .one-whole;
+		border-bottom:solid 1px #ccc;
+	}
+
+
+.releases
+{
+	@extend .grid;
+	@extend .grid--rev;
+	padding-bottom:$base-spacing-unit;
+	margin-top:$base-spacing-unit;
+}
+
+	.releases__active-release, .releases__releases-grid{
+		@extend .grid__item;
+		@extend .palm-one-whole;
+	}
+
+	.releases__active-release{
+		@extend .three-eighths;
+		@extend .lap-two-fifths;
+
+		img{
+			@extend .scalable;
+		}
+
+		@include media-query(palm){
+			&:after{
+				content:" ↑ ↓ ";
+				width:100%;
+				text-align:center;
+				line-height:$base-spacing-unit*3;
+				display:inline-block;
+				margin:0px auto;
+			}
+		}
+
+		section{
+			border-left:solid 1px #ccc;
+			padding-left:$base-spacing-unit;
+			text-align:center;
+
+				img{
+					@extend .scalable;
+					margin:0px auto;
+				}
+
+			@include media-query(palm)
+			{
+				padding-left:0px;
+				border-left:0px;
+			}
+		}
+
+	}
+
+		.release-buttons{
+			margin-top:$base-spacing-unit;
+		}
+
+	.releases__releases-grid{
+		@extend .five-eighths;
+		@extend .lap-three-fifths;
+		@extend .grid;
+		padding-left:0px;
+	}
+
+		.releases-grid__release{
+			@extend .grid__item;
+			@extend .one-third;
+			@extend .palm-one-half;
+		}
+
+
+			.img-btn--label-active{
+				@extend .no-text-interactivity;
+
+				@include media-query(desk){
+					.caption{
+						opacity:1;
+
+						.caption__backdrop{
+							background:$brand-color;
+							opacity:.8;
+						}
+
+					}				
+				}
+
+				@include media-query(portable){
+					.caption__content:after, .caption__content:before{
+						content:" → ";
+						@include media-query(palm){ content:" ↑ "; }
+					}					
+				}
+
+			}

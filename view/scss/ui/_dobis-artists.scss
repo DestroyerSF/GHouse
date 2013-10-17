@@ -1,0 +1,41 @@
+/*------------------------------------*\
+    $DOBIS-ARTISTS.SCSS
+\*------------------------------------*/
+.artists-grid__artist--add{
+	
+	.img-btn:hover{
+		@include vendor(text-shadow, none);
+		background: #f0f0f0;
+	}
+
+	.img-btn:active{
+		@include vendor(text-shadow, none);
+		background: #c0c0c0;
+	}	
+
+		.img-btn__img{
+			border:solid #ccc 1px;
+
+			// &:active{
+			// 	background:#a0a0a0;
+			// }
+		}
+
+	.icon{
+		font-size:800%;
+		color:$brand-color;
+		position:absolute;
+		top:45%;
+		line-height:10%;
+		width:100%;
+		text-align:center;
+
+		@include media-query(portable){
+			font-size:450%;
+		}
+
+		@include media-query(palm){
+			font-size:400%;
+		}		
+	}
+}

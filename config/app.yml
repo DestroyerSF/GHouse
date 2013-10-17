@@ -1,0 +1,21 @@
+# app configuration - same on remote/server
+local:                              # settings for local environment
+    db:
+        driver: pdo_mysql
+        dbname: ghouse
+        host: 127.0.0.1
+        user: root
+        password: d0bi5
+dev:                                # settings for development environment
+    db:
+        driver: pdo_mysql
+        dbname: ghouseco_music
+        host: 208.97.161.162
+        user: ghouseco_music
+        password: gh0u$3c0mus!c
+prod:                               # settings for production environment
+        driver: pdo_mysql
+        dbname: ghouseco_music
+        host: 208.97.161.162
+        user: ghouseco_music
+        password: gh0u$3c0mus!c

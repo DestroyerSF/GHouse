@@ -1,0 +1,69 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{% block buttons %}
+	<button class="btn  btn--submit">
+		save
+	</button>
+{% endblock %}
+
+{% block content %}
+<h1 class="dobis-heading">Account</h1>
+<form class="form  form--account-dobis" action="/dobismaster/account" method="POST" {{ form_enctype(form) }}>
+	{% if message is defined and message is not null %}
+		<p class="form__errors">
+			{{ message }}
+		</p>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<p class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0 }}
+		</p>
+	{% endif %}		
+
+	<div class="grid  grid--center">
+		<div class="grid__item  one-half">
+
+			<fieldset class="account-dobis">
+			
+				<section class="form__input">
+					{{ form_label(form.username, 'Username') }}
+					<div class="input__control">
+						{{ form_widget(form.username) }}
+						<div class="input__error">{{ form_errors(form.username) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(form.password, 'Password') }}
+					<div class="input__control">
+						{{ form_widget(form.password) }}
+						<p class="input__help">Leave blank for no change.</p>
+						<div class="input__error">{{ form_errors(form.password) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(form.name, 'Name') }}
+					<div class="input__control">
+						{{ form_widget(form.name) }}
+						<div class="input__error">{{ form_errors(form.name) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(form.email, 'E-Mail Address') }}
+					<div class="input__control">
+						{{ form_widget(form.email) }}
+						<div class="input__error">{{ form_errors(form.email) }}</div>
+					</div>
+				</section>
+
+			</fieldset>
+
+		</div>
+	</div>
+	{{ form_rest(form) }}
+</form>
+
+{% endblock content %}

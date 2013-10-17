@@ -1,0 +1,96 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{% block buttons %}
+	<button class="btn  btn--submit">
+		save
+	</button>		
+	<a href="{{ app.base_url }}" class="btn  btn--action" target="_blank">
+		view
+	</a>
+{% endblock %}
+
+{% block content %}
+<h1 class="dobis-heading">Header Blocks</h1>
+<form class="form  form--header-blocks-dobis" action="/dobismaster/header-blocks" method="POST" {{ form_enctype(form) }}>
+	{% if message is defined and message is not null %}
+		<p class="form__errors">
+			{{ message }}
+		</p>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<p class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0 }}
+		</p>
+	{% endif %}		
+
+	<div class="grid  grid--center">
+		<div class="grid__item  one-half">
+
+			<fieldset class="header-block-dobis  header-block-dobis--main">
+			
+				<section class="form__input">
+					{{ form_label(form.main, 'Main Feature') }}
+					<div class="input__control">
+						{{ form_widget(form.main) }}
+						<div class="input__error">{{ form_errors(form.main) }}</div>
+					</div>
+				</section>
+
+			</fieldset>
+
+
+			<fieldset class="header-block-dobis  header-block-dobis--sub">	
+				<section class="form__input">
+
+					{{ form_label(form.main, 'Subfeature 1') }}
+					<div class="input__control">
+						{{ form_widget(form.sub_1) }}
+						<div class="input__error">{{ form_errors(form.sub_1) }}</div>
+					</div>
+
+				</section>
+			</fieldset>
+
+			<fieldset class="header-block-dobis  header-block-dobis--sub">	
+				<section class="form__input">
+
+					{{ form_label(form.main, 'Subfeature 2') }}
+					<div class="input__control">
+						{{ form_widget(form.sub_2) }}
+						<div class="input__error">{{ form_errors(form.sub_2) }}</div>
+					</div>
+
+				</section>
+			</fieldset>
+
+			<fieldset class="header-block-dobis  header-block-dobis--sub">
+				<section class="form__input">
+
+					{{ form_label(form.main, 'Subfeature 3') }}
+					<div class="input__control">
+						{{ form_widget(form.sub_3) }}
+						<div class="input__error">{{ form_errors(form.sub_3) }}</div>
+					</div>
+
+				</section>
+			</fieldset>
+
+			<fieldset class="header-block-dobis  header-block-dobis--sub">
+				<section class="form__input">
+
+					{{ form_label(form.main, 'Subfeature 4') }}
+					<div class="input__control">
+						{{ form_widget(form.sub_4) }}
+						<div class="input__error">{{ form_errors(form.sub_4) }}</div>
+					</div>
+
+				</section>
+			</fieldset>
+
+		</div>
+	</div>
+	{{ form_rest(form) }}
+</form>
+
+{% endblock content %}

@@ -1,0 +1,2 @@
+# app configuration - different on remote/server
+env: local

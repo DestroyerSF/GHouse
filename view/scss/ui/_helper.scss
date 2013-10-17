@@ -1,0 +1,23 @@
+/*------------------------------------*\
+    $HELPER.SCSS
+\*------------------------------------*/
+.force-max-height
+{
+	min-height: 100%;
+	height: auto!important;
+	height: 100%;
+	display:block;
+}
+.no-text-interactivity{
+	&, & *, * > & {
+		@include vendor(user-select, none);
+		cursor:default;
+	}
+}
+.one-seventh{ width:14.28571428571429%; }
+
+.hide{ display:none; }
+.hide--palm{ @include media-query(palm){ display:none; } }
+.hide--lap-and-up{ @include media-query(lap-and-up){ display:none; } }
+
+.one-seventh{ width:14.285%!important; }

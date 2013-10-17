@@ -1,0 +1,67 @@
+{% extends 'dobis-layout.html.twig' %}
+
+{% set page_script = 'dobis-label' %}
+
+{% block buttons %}
+	<button class="btn  btn--submit">
+		{% if app.request.get('label_slug') == 'new' %}create{% else %}save{% endif %}
+	</button>
+	{% if app.request.get('label_slug') != 'new' %}
+		<a href="/dobismaster/labels/{{ app.request.get('label_slug') }}/delete" class="btn  btn--delete">
+			delete
+		</a>
+	{% endif %}	
+{% endblock %}
+
+{% block content %}
+<h1 class="dobis-heading">{% if app.request.get('label_slug') == 'new' %}New {% else %}Edit {% endif %}Label</h1>
+<form class="form  form--label-dobis" action="/dobismaster/labels/{{ app.request.get('label_slug') }}" method="POST" {{ form_enctype(form) }}>
+	{% if message is defined and message is not null %}
+		<p class="form__errors">
+			{{ message }}
+		</p>
+	{% endif %}
+
+	{% if app.session.getFlashBag().has('notice') %}
+		<p class="form__notice">
+			{{ app.session.getFlashBag().get('notice').0|raw }}
+		</p>
+	{% endif %}
+
+
+	{% if app.session.getFlashBag().has('error') %}
+		<p class="form__errors">
+			{{ app.session.getFlashBag().get('error').0|raw }}
+		</p>
+	{% endif %}	
+
+	<div class="grid  grid--center">
+		<div class="grid__item  one-half">
+
+			<fieldset class="label-dobis">
+			
+				<section class="form__input">
+					{{ form_label(form.name, 'Name') }}
+					<div class="input__control">
+						{{ form_widget(form.name) }}
+						<div class="input__error">{{ form_errors(form.name) }}</div>
+					</div>
+				</section>
+
+				<section class="form__input">
+					{{ form_label(form.new_picture, 'Picture') }}
+					<div class="input__control">
+						{% if app.request.get('label_slug') != 'new' %}<img src="{{ app.base_url }}/img/label/{{ label.slug }}.{{ label.picture_ext }}" class="one-third">{% endif %}
+						{{ form_widget(form.new_picture) }}
+						<div class="input__error">{{ form_errors(form.new_picture) }}</div>
+					</div>
+				</section>				
+
+			</fieldset>
+
+		</div>
+	</div>
+	{{ form_rest(form) }}
+</form>
+
+{% endblock content %}

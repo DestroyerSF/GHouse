@@ -1,0 +1,21 @@
+/*------------------------------------*\
+    $DOBIS-ARTIST.SCSS
+\*------------------------------------*/
+.form--artist-dobis{
+	.artist-dobis, .release-dobis, .no-release{ padding:$base-spacing-unit $base-spacing-unit $base-spacing-unit $base-spacing-unit; border-top:solid #555 2px; }
+
+	/*fieldset*/.release-dobis, .no-release{ background:lighten($brand-color, 30%); margin-bottom:$base-spacing-unit; }
+	/*fieldset*/.artist-dobis{ background:darken(#fff, 8%); }
+
+	input,textarea{ @extend .scalable; }
+
+	label { font-weight:600; }
+
+	.input__help{
+		@include font-size(12px);
+		font-style:italic;
+	}
+
+}
+
+	.add-release{ @extend .form__add-section; }

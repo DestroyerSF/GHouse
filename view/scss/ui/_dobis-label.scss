@@ -1,0 +1,18 @@
+/*----------------------------------*\
+    $DOBIS-LABELS.CSS
+\*------------------------------------*/
+.form--label-dobis{
+	.label-dobis{ padding:$base-spacing-unit $base-spacing-unit $base-spacing-unit $base-spacing-unit; border-top:solid #555 2px; }
+
+	/*fieldset*/.label-dobis{ background:lighten($brand-color, 30%); margin-bottom:$base-spacing-unit; }
+
+	input,textarea{ @extend .scalable; }
+
+	label { font-weight:600; }
+
+	.input__help{
+		@include font-size(12px);
+		font-style:italic;
+	}
+
+}

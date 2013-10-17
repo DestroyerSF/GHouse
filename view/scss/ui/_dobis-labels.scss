@@ -1,0 +1,90 @@
+/*------------------------------------*\
+    $DOBIS-LABELS.SCSS
+\*------------------------------------*/
+.labels-grid{
+	@extend .grid;
+
+	.labels-grid__label{
+		@extend .grid__item;
+		@extend .palm-one-half;
+
+		.img-btn--label
+		{
+			opacity:1;
+			@include vendor(transition, opacity 1s ease-out);
+
+			&.off{
+				cursor:default;
+				opacity:.1;
+
+				@include media-query(portable){
+					.caption:hover{
+						opacity:0;
+					}
+				}
+			}
+		}
+
+		.drag-handle{
+			position:absolute;
+			cursor:move;
+			z-index:10;
+			// top:0px;
+			height:$base-spacing-unit;
+			width:$base-spacing-unit;
+			background-color:$brand-color;
+		}
+
+		.img-btn__img{
+			border:solid #ccc 1px;
+
+			// &:active{
+			// 	background:#a0a0a0;
+			// }
+		}		
+	}
+}
+
+
+.labels-grid__label--add{
+	
+	.img-btn:hover{
+		@include vendor(text-shadow, none);
+		background: #f0f0f0;
+	}
+
+	.img-btn:active{
+		@include vendor(text-shadow, none);
+		background: #c0c0c0;
+	}	
+
+	.icon{
+		font-size:800%;
+		color:$brand-color;
+		position:absolute;
+		top:45%;
+		line-height:10%;
+		width:100%;
+		text-align:center;
+
+		@include media-query(portable){
+			font-size:450%;
+		}
+
+		@include media-query(palm){
+			font-size:400%;
+		}		
+	}
+}
+
+.drag-handle-dummy{
+	position:relative;
+	top:6px;
+	display:inline-block;
+	cursor:move;
+	z-index:10;
+	// top:0px;
+	height:$base-spacing-unit;
+	width:$base-spacing-unit;
+	background-color:$brand-color;
+}

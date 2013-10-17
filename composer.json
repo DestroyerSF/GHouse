@@ -1,0 +1,28 @@
+{   
+    "require": {            
+        "php"                                           : ">=5.3.3",
+        "silex/silex"                                   : "dev-master",
+        "twig/twig"                                     : "1.13.*@dev",
+        "symfony/http-foundation"                       : "2.*@dev",
+        "monolog/monolog"                               : ">=1.0.0",
+        "symfony/form"                                  : "2.*@dev",
+        "symfony/translation"                           : "2.*@dev",
+        "symfony/twig-bridge"                           : "2.*@dev",
+        "symfony/validator"                             : "2.*@dev",
+        "symfony/yaml"                                  : "2.*@dev",
+        "symfony/config"                                : "2.*@dev",
+        "swiftmailer/swiftmailer"                       : "4.1.7",
+        "doctrine/dbal"                                 : "2.*@dev",
+        "knplabs/knp-snappy"                            : "dev-master@dev",
+        "grom/silex-service-provider"                   : "dev-master@dev",
+        "guzzle/guzzle"                                 : "3.5.*@dev"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "GHouse": "src/lib"
+        }
+    },
+
+    "minimum-stability" : "dev"
+}

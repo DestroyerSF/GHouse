@@ -1,0 +1,114 @@
+/*------------------------------------*\
+    $HOMEPAGE.SCSS
+\*------------------------------------*/
+.labels-bar{	
+	padding-top:$base-spacing-unit;
+
+	@include media-query(portable){
+		padding-top:0px;
+	}
+}
+
+	.labels-bar__header{
+		text-align:center;
+		position:relative;
+		top:21%;
+
+		h2{
+			@include font-size(32px);
+			cursor:default;
+			font-variant:small-caps;
+			color:$brand-color;
+			font-weight:200;
+			letter-spacing:$base-spacing-unit/10;
+			margin-bottom:0px;
+			margin-top:1.5rem;
+		}
+
+		h3{
+			@include font-size(16px);
+			cursor:default;
+			font-variant:small-caps;
+			font-weight:200;
+			letter-spacing: $base-spacing-unit/16;
+
+			&:before,&:after{
+				@include font-size(12px);
+				opacity:0.5;
+				content:" → ";
+				@include media-query(portable){
+					content:" ↓ ";
+				}
+			}
+		}
+	}
+
+	.labels-bar__labels-grid{
+		@extend .grid;
+
+		.labels-grid__label{
+			@extend .grid__item;
+		}
+
+			.img-btn--label .caption__content{
+					@include font-size(13px);
+					height:($line-height-ratio*13)+px;
+					margin-top:-($line-height-ratio*13)/2+px;
+
+					@include media-query(portable){
+						opacity:0;
+					}
+			}
+
+			.img-btn--label.off{
+				opacity:.6;
+			}
+			
+			.img-btn--label.on{
+				.caption {
+					opacity:1;
+				}
+					.caption__backdrop{
+						opacity:.85;
+					}
+			}
+	}
+
+	.labels-bar__border{
+		@extend .grid__item;
+		@extend .one-whole;
+		div{
+			border-top:solid 1px #ccc;
+			width:100%;
+		}
+		
+	}	
+
+
+.artists-grid{
+	@extend .grid;
+
+	.artists-grid__artist{
+		@extend .grid__item;
+		@extend .one-fifth;
+		@extend .palm-one-half;
+		@include vendor(transition, opacity .2s ease-out);
+		opacity:1;
+
+		&.off{
+			@include vendor(transition, none);
+			cursor:default;
+			opacity:0;
+			width:0px!important;
+			height:0px;
+			padding-left:0px;
+
+			@include media-query(portable){
+				.img-btn--artist .caption:hover{
+					opacity:0;
+				}
+			}
+		}
+	}
+}
+

@@ -1,0 +1,20 @@
+{% set tweet = app.artist.recent_tweet %}
+{% if tweet.0.text_raw|length <= 24 %} {% set tweet_size = 'extra-small' %}
+{% elseif tweet.0.text_raw|length <= 62 %} {% set tweet_size = 'small' %}
+{% elseif tweet.0.text_raw|length <= 114 %}  {% set tweet_size = 'medium' %}
+{% else %}  {% set tweet_size = 'big' %} 
+{% endif %}
+
+<div class="recent-tweet">
+
+	<img src="{{ tweet.user.profile_image_url }}" class="recent-tweet__profile-picture" alt="@{{ tweet.user.screen_name }}">
+
+	<div class="recent-tweet__body  tweet-text--{{ tweet_size }}">
+		<a class="handle" target="_blank" href="http://twitter.com/{{ tweet.user.screen_name }}" title="@{{ tweet.user.screen_name }}on Twitter">@{{ tweet.user.screen_name }}</a>:
+		{{ tweet.0.text|raw }}
+		<i class="icon" data-icon="&#xF099"></i>
+		{# {{ tweet.0.created_at|date('g:i a') ~ ' on ' ~ tweet.0.created_at|date('M. d, Y') }} #}
+	</div>
+
+
+</div>

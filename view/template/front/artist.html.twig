@@ -1,0 +1,89 @@
+{% extends 'layout.html.twig' %}
+
+
+
+{% block meta_tags %}
+{% set description = "Stream / purchase '" ~ featured_release.name ~ "' and hear more by " ~  app.artist.name ~ " on GHouse." %}
+{% set title = app.artist.name ~ " — " ~ featured_release.name %}
+
+<meta name="description" content="{{ description }}">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@GHouse">
+<meta name="twitter:creator" content="@{{ app.artist.twitter_handle }}">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ app.base_url }}/img/twitter_thumb/artist/{{ app.artist.slug }}/releases/{{ featured_release.slug }}.{{ featured_release.picture_ext }}">
+<meta name="twitter:url" content="{{ app.base_url }}/{{ app.artist.slug }}/{{ featured_release.slug }}">
+
+<meta property="og:description" content="{{ description }}">
+<meta property="og:image" content="{{ app.base_url }}/img/twitter_thumb/artist/{{ app.artist.slug }}/releases/{{ featured_release.slug }}.{{ featured_release.picture_ext }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:url" content="{{ app.base_url }}/{{ app.artist.slug }}/{{ featured_release.slug }}">
+<meta property="og:site_name" content="GHouse">
+<meta property="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+	
+	<div class="artist">
+		<div class="heading-wrapper">
+
+			<div class="artist__heading">
+
+				<div class="heading__title{% if app.artist.recent_tweet == false %}  heading__title--full{% endif %}">
+					<hgroup>
+						<h1>
+							{{ app.artist.name|raw }}
+						</h1>
+						<h3>{{ app.artist.location|raw }}</h3>
+
+					</hgroup>
+
+
+					
+				</div>{% if app.artist.recent_tweet %}<!--
+			 	
+			 	
+			 --><div class="heading__tweet">
+					<div class="tweet-wrapper">
+						{% include 'partials/recent-tweet_widget.html.twig' %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+
+		</div>
+
+		{% if app.artist.songkick_artist_id is not null or app.artist.booking_agent %}
+		<div class="artist__shows">
+			{% include 'partials/booking_widget.html.twig' %}
+		</div>
+		{% endif %}		
+
+
+	</div>
+
+
+	<div class="releases">
+
+			<div class="releases__active-release">
+				{% include 'partials/release.html.twig' %}
+			</div><!--
+
+		 --><div class="releases__releases-grid" data-release-slug="{{ featured_release.slug }}">
+				{% for release in app.artist.releases %}<div class="releases-grid__release">
+					<a class="btn  img-btn  img-btn--label{% if release.slug == featured_release.slug %} img-btn--label-active{% endif %}" href="{{ app.base_url }}/{{ app.artist.slug }}/{{ release.slug }}" data-toggle="release" data-release-slug="{{ release.slug }}" data-artist-slug="{{ app.artist.slug }}">
+						<img src="{{ app.base_url }}/img/thumb/artist/{{ app.artist.slug }}/releases/{{ release.slug }}.{{ release.picture_ext }}"/>
+						<div class="caption">
+							<div class="caption__backdrop"></div>
+							<div class="caption__content">{{ release.name|raw }}</div>
+						</div>
+					</a>
+				</div>{% endfor %}
+			</div>
+
+	</div>
+
+
+{% endblock %}
